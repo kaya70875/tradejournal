@@ -4,11 +4,9 @@ import React, { useState } from 'react'
 import FormField from '../FormField';
 import Button from '../../Button';
 import GoogleAuthButton from '../GoogleAuthButton';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { AuthError } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-
-const supabase = createClient();
 
 export default function LoginForm() {
 
@@ -32,10 +30,11 @@ export default function LoginForm() {
       password: formData.password
     });
 
-    if (error) setError(error);
     setLoading(false);
 
-    if (data.user?.role === "authenticated") {
+    if (error) return setError(error);
+
+    if (data.user) {
       router.push('/dashboard');
     }
   }

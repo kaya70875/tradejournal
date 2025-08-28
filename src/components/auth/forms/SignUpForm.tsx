@@ -4,11 +4,9 @@ import React, { useState } from 'react';
 import FormField from '../FormField';
 import Button from '@/components/Button';
 import GoogleAuthButton from '../GoogleAuthButton';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { AuthError } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-
-const supabase = createClient();
 
 export default function SignUpForm() {
 
@@ -43,6 +41,8 @@ export default function SignUpForm() {
 
         if (error) {
             setError(error)
+        } else {
+            router.push('/confirm');
         }
     };
 

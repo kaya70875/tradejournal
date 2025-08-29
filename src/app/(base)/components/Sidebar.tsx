@@ -15,14 +15,12 @@ import {
     LogOutIcon,
 } from "lucide-react";
 import { supabase } from "@/utils/supabase/client";
-import { useGetUser } from "@/hooks/useGetUser";
+import UserInfo from "./UserInfo";
 
 export default function Sidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = useState(false);
-
-    const { user, loading } = useGetUser();
 
     const navItems = [
         { label: "Home", href: "/", icon: <HomeIcon className="h-5 w-5" /> },
@@ -56,13 +54,8 @@ export default function Sidebar() {
 
             {/* User */}
             <div className={`flex items-center ${isCollapsed ? "justify-center" : "px-4"} py-4 border-b border-gray-800`}>
-                <div className="bg-blue-500 rounded-full p-2">
-                    <UserIcon className="h-6 w-6 text-white" />
-                </div>
-                {!isCollapsed && user && (
-                    <div className="ml-3 overflow-hidden">
-                        <p className="text-xs text-gray-400 truncate">{user.email}</p>
-                    </div>
+                {!isCollapsed && (
+                    <UserInfo />
                 )}
             </div>
 

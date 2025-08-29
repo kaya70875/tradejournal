@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
     BookOpenIcon,
     ChevronLeftIcon,
@@ -17,6 +17,7 @@ import {
 import { supabase } from "@/utils/supabase/client";
 
 export default function Sidebar({ user }: { user?: { name: string; email: string } }) {
+    const router = useRouter();
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -29,8 +30,9 @@ export default function Sidebar({ user }: { user?: { name: string; email: string
     ];
 
     const handleLogout = async () => {
-        const { error } = await supabase.auth.signOut();
-        console.log('logged out!');
+        await supabase.auth.signOut();
+        router.push('/login');
+        console.log('logged out');
     }
     return (
         <div

@@ -15,11 +15,14 @@ import {
     LogOutIcon,
 } from "lucide-react";
 import { supabase } from "@/utils/supabase/client";
+import { useGetUser } from "@/hooks/useGetUser";
 
-export default function Sidebar({ user }: { user?: { name: string; email: string } }) {
+export default function Sidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const { user, loading } = useGetUser();
 
     const navItems = [
         { label: "Home", href: "/", icon: <HomeIcon className="h-5 w-5" /> },
@@ -32,7 +35,6 @@ export default function Sidebar({ user }: { user?: { name: string; email: string
     const handleLogout = async () => {
         await supabase.auth.signOut();
         router.push('/login');
-        console.log('logged out');
     }
     return (
         <div
@@ -59,7 +61,6 @@ export default function Sidebar({ user }: { user?: { name: string; email: string
                 </div>
                 {!isCollapsed && user && (
                     <div className="ml-3 overflow-hidden">
-                        <p className="text-sm font-medium truncate">{user.name}</p>
                         <p className="text-xs text-gray-400 truncate">{user.email}</p>
                     </div>
                 )}

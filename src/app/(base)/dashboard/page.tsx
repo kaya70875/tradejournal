@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import React from 'react'
+import DashboardHeader from '../components/DashboardHeader';
 
 export default async function page() {
     const supabase = await createClient();
@@ -10,8 +11,8 @@ export default async function page() {
         redirect("/login");
     }
     return (
-        <div>
-
+        <div className='ml-[256px] p-8'>
+            <DashboardHeader />
         </div>
     )
 }

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+h2,
+.h2 {
+  @apply text-3xl font-extrabold text-gray-900 sm:text-4xl
+}
+
 @theme {
   --color-primary-blue: #155dfc;
   --color-primary-blue-accent: #193cb8;

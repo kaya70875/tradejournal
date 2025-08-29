@@ -30,7 +30,7 @@ export default function SignUpForm() {
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password,
             options: {
@@ -42,6 +42,20 @@ export default function SignUpForm() {
         if (error) {
             setError(error)
         } else {
+            const user = data.user;
+            if (user) {
+
+                const {error: profileError} = await supabase.from('profiles').insert(
+                    {
+                        id: user.id,
+                        name: formData.name
+                    }
+                )
+
+                if(profileError) {
+                    console.log('Error inserting user informations to profile table.');
+                }
+            }
             router.push('/confirm');
         }
     };

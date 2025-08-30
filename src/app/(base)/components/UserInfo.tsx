@@ -5,7 +5,7 @@ import { UserIcon } from "lucide-react";
 export default function UserInfo () {
 
     const { user, loading: userLoading } = useGetUser();
-    const {profile, loading: profileLoading } = useProfile(user?.id as string);
+    const { profile } = useProfile(user?.id as string);
 
     return (
         <div className="flex items-center">

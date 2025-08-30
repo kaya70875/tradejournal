@@ -15,22 +15,26 @@ export const useProfile = (userId: string) => {
     useEffect(() => {
         const getProfile = async () => {
             setLoading(true);
-            const { data: profile, error } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', userId)
-                .single()
-            
-            if(error) {
-                setLoading(false)
-                return console.log('Error while getting profile informations.', error)
-            }
-            setLoading(false);
-            setProfile(profile);
+
+            if(userId) {
+                const { data: profile, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', userId)
+                    .single()
+                
+                if(error) {
+                    setLoading(false)
+                    return console.log('Error while getting profile informations.', error)
+                }
+
+                setLoading(false);
+                setProfile(profile);
+            };
         }
 
         getProfile();
-    }, [])
+    }, [userId])
 
     return {profile, loading};
 }

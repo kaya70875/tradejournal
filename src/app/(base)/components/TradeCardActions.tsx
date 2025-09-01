@@ -6,17 +6,17 @@ import React, { useEffect, useState } from 'react'
 import ConfirmationModal from './ConfirmationModal';
 
 interface TradeCardActionsProps {
-    id: number;
+    cardId: number;
 }
 
-export default function TradeCardActions({ id }: TradeCardActionsProps) {
+export default function TradeCardActions({ cardId }: TradeCardActionsProps) {
 
     const [confirmationModal, setConfirmationModal] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleRemoveCard = async () => {
         setLoading(true);
-        const { error } = await supabase.from('trade').delete().eq('id', id);
+        const { error } = await supabase.from('trade').delete().eq('id', cardId);
         if (error) return console.error(error);
         setLoading(false);
         setConfirmationModal(false);

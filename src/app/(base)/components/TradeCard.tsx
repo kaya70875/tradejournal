@@ -20,7 +20,7 @@ export default function TradeCard({ id, pair, reason, date, tags }: TrandeCardPr
             <section className="flex flex-col gap-2">
                 <header className="flex items-center w-full justify-between">
                     <h3>{pair}</h3>
-                    <TradeCardActions id={id} />
+                    <TradeCardActions cardId={id} />
                 </header>
 
                 <div className="date flex items-center gap-2">

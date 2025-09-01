@@ -7,6 +7,7 @@ import TradeForm from './TradeForm'
 import TradeCard from './TradeCard'
 
 interface TradeCard {
+    id: number;
     pair: string;
     reason: string;
     created_at: string;
@@ -32,7 +33,7 @@ export default function DashboardClient({ tradeCards }: DashboardClientProps) {
 
             <section className='grid grid-cols-3 gap-4 w-full'>
                 {tradeCards.map((card, idx) => (
-                    <TradeCard pair={card.pair} reason={card.reason} date={card.created_at} tags={card.tags} key={idx} />
+                    <TradeCard id={card.id} pair={card.pair} reason={card.reason} date={card.created_at} tags={card.tags} key={idx} />
                 ))}
             </section>
 

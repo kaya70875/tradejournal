@@ -8,9 +8,9 @@ interface TrandeCardProps {
     tags: string[];
 }
 
-export default function TradeCard({pair, reason, date, tags} : TrandeCardProps) {
+export default function TradeCard({ pair, reason, date, tags }: TrandeCardProps) {
     return (
-        <div className="flex flex-col gap-4 p-4 rounded-lg border border-gray-200 w-1/4">
+        <div className="flex flex-col gap-4 p-4 rounded-lg border border-gray-200 w-full max-w-2xl">
             <section className="flex flex-col gap-2">
                 <header className="flex items-center w-full justify-between">
                     <h3>{pair}</h3>

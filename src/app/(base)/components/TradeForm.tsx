@@ -5,16 +5,24 @@ import React, { useState } from 'react'
 import TextArea from './TextArea';
 import Button from '@/components/Button';
 import { supabase } from '@/utils/supabase/client';
-import { useGetUser } from '@/hooks/useGetUser';
 
-export default function TradeForm() {
+interface Trade {
+  pair: string;
+  reason: string;
+  tags: string[];
+}
 
-  const { user } = useGetUser();
+interface TradeFormProps {
+  onClose: () => void;
+  initialValues?: Trade;
+}
 
-  const [tradeForm, setTradeForm] = useState({
-    pair: '',
-    reason: '',
-    tags: [] as string[]
+export default function TradeForm({ onClose, initialValues }: TradeFormProps) {
+
+  const [tradeForm, setTradeForm] = useState<Trade>({
+    pair: initialValues?.pair || '',
+    reason: initialValues?.reason || '',
+    tags: initialValues?.tags || [] as string[]
   });
 
   const [loading, setLoading] = useState(false);
@@ -30,12 +38,11 @@ export default function TradeForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.from('trade').insert([
+    const { error } = await supabase.from('trade').insert([
       {
         'pair': tradeForm.pair,
         'reason': tradeForm.reason,
         'tags': tradeForm.tags,
-        'userid': user?.id
       }
     ])
 
@@ -61,18 +68,18 @@ export default function TradeForm() {
           <TextArea label='Why did you enter this trade?' name='reason' value={tradeForm.reason} placeholder='Describe your trading thesis and reasoning...' required onChange={handleChange} />
           <FormField label='Tags' placeholder='Add tags (e.g., long, daytrade)' name='tags' value={tradeForm.tags.join(', ')} onChange={handleChange} />
         </section>
-        <TradeActionButtons loading={loading} />
+        <TradeActionButtons loading={loading} onClose={onClose} />
       </form>
 
     </div>
   )
 }
 
-function TradeActionButtons({ loading }: { loading: boolean }) {
+function TradeActionButtons({ loading, onClose }: { loading: boolean, onClose: () => void }) {
   return (
     <div className='w-full flex items-center justify-end gap-4'>
       <Button type='submit' disabled={loading} className='disabled:opacity-80'>Add Trade</Button>
-      <Button variant='ghost'>Cancel</Button>
+      <Button onClick={onClose} variant='ghost'>Cancel</Button>
     </div>
   )
 }

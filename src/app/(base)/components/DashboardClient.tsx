@@ -6,7 +6,7 @@ import SearchInput from './SearchInput'
 import TradeForm from './TradeForm'
 import TradeCard from './TradeCard'
 
-interface TradeCard {
+export interface TradeCard {
     id: number;
     pair: string;
     reason: string;
@@ -21,19 +21,49 @@ interface DashboardClientProps {
 export default function DashboardClient({ tradeCards }: DashboardClientProps) {
 
     const [showTradeForm, setShowTradeForm] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingCard, setEditingCard] = useState<TradeCard | null>(null);
+
+    const handleOnEdit = (card: TradeCard) => {
+        setIsEditing(true);
+        setShowTradeForm(true);
+        setEditingCard(card);
+    }
+
+    const handleCancelUpdate = () => {
+        setIsEditing(false);
+        setShowTradeForm(false);
+        setEditingCard(null);
+    }
+
+    const handleNewTradeForm = () => {
+        setShowTradeForm(true);
+        setIsEditing(false);
+        setEditingCard(null);
+    }
 
     return (
         <div className='ml-[256px] p-8 flex flex-col gap-4'>
-            <DashboardHeader onOpen={() => setShowTradeForm(true)} />
+            <DashboardHeader onOpen={handleNewTradeForm} />
             <SearchInput />
 
             {showTradeForm && (
-                <TradeForm onClose={() => setShowTradeForm(false)} />
+                <TradeForm onClose={() => setShowTradeForm(false)} type={isEditing ? 'update' : 'insert'} initialValues={editingCard as TradeCard} editingCardId={editingCard?.id} />
             )}
 
             <section className='grid grid-cols-3 gap-4 w-full'>
                 {tradeCards.map((card, idx) => (
-                    <TradeCard id={card.id} pair={card.pair} reason={card.reason} date={card.created_at} tags={card.tags} key={idx} />
+                    <TradeCard
+                        id={card.id}
+                        pair={card.pair}
+                        reason={card.reason}
+                        date={card.created_at}
+                        tags={card.tags}
+                        key={idx}
+                        onEdit={() => handleOnEdit(card)}
+                        onCancel={() => handleCancelUpdate()}
+
+                    />
                 ))}
             </section>
 

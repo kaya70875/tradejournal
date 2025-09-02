@@ -8,16 +8,18 @@ interface TrandeCardProps {
     reason: string;
     date: string;
     tags: string[];
+    onEdit: () => void;
+    onCancel: () => void;
 }
 
-export default function TradeCard({ id, pair, reason, date, tags }: TrandeCardProps) {
+export default function TradeCard({ id, pair, reason, date, tags, onEdit, onCancel }: TrandeCardProps) {
 
     return (
         <div className="flex flex-col gap-4 p-4 rounded-lg border border-gray-200 w-full max-w-2xl">
             <section className="flex flex-col gap-2">
                 <header className="flex items-center w-full justify-between">
                     <h3>{pair}</h3>
-                    <TradeCardActions cardId={id} />
+                    <TradeCardActions cardId={id} onEdit={onEdit} onCancel={onCancel} />
                 </header>
 
                 <div className="date flex items-center gap-2">

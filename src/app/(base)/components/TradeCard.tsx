@@ -1,8 +1,5 @@
-import { Calendar, SquarePen, Trash } from "lucide-react";
+import { Calendar } from "lucide-react";
 import Tag from "./Tag";
-import { supabase } from "@/utils/supabase/client";
-import { useState } from "react";
-import ConfirmationModal from "./ConfirmationModal";
 import TradeCardActions from "./TradeCardActions";
 
 interface TrandeCardProps {

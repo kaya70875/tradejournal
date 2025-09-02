@@ -6,6 +6,8 @@ import TextArea from './TextArea';
 import Button from '@/components/Button';
 import { supabase } from '@/utils/supabase/client';
 
+type FormType = 'insert' | 'update';
+
 interface Trade {
   pair: string;
   reason: string;
@@ -15,9 +17,10 @@ interface Trade {
 interface TradeFormProps {
   onClose: () => void;
   initialValues?: Trade;
+  type?: FormType;
 }
 
-export default function TradeForm({ onClose, initialValues }: TradeFormProps) {
+export default function TradeForm({ onClose, initialValues, type = 'insert' }: TradeFormProps) {
 
   const [tradeForm, setTradeForm] = useState<Trade>({
     pair: initialValues?.pair || '',
@@ -60,7 +63,7 @@ export default function TradeForm({ onClose, initialValues }: TradeFormProps) {
   return (
     <div className='flex flex-col gap-6 w-full p-6 border border-gray-200 rounded-lg'>
       <header className="form-header">
-        <h3>Add New Trade</h3>
+        <h3>{type == 'insert' ? 'Add New Trade' : 'Update Trade Card'}</h3>
       </header>
       <form className='flex flex-col gap-6 w-full' onSubmit={handleSubmit}>
         <section className="inputs flex flex-col gap-2">
@@ -68,17 +71,16 @@ export default function TradeForm({ onClose, initialValues }: TradeFormProps) {
           <TextArea label='Why did you enter this trade?' name='reason' value={tradeForm.reason} placeholder='Describe your trading thesis and reasoning...' required onChange={handleChange} />
           <FormField label='Tags' placeholder='Add tags (e.g., long, daytrade)' name='tags' value={tradeForm.tags.join(', ')} onChange={handleChange} />
         </section>
-        <TradeActionButtons loading={loading} onClose={onClose} />
+        <TradeActionButtons loading={loading} onClose={onClose} type={type} />
       </form>
-
     </div>
   )
 }
 
-function TradeActionButtons({ loading, onClose }: { loading: boolean, onClose: () => void }) {
+function TradeActionButtons({ loading, onClose, type = 'insert' }: { loading: boolean, onClose: () => void, type: FormType }) {
   return (
     <div className='w-full flex items-center justify-end gap-4'>
-      <Button type='submit' disabled={loading} className='disabled:opacity-80'>Add Trade</Button>
+      <Button type='submit' disabled={loading} className='disabled:opacity-80'>{type == 'insert' ? 'Add trade' : 'Update trade'}</Button>
       <Button onClick={onClose} variant='ghost'>Cancel</Button>
     </div>
   )

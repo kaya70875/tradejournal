@@ -32,8 +32,8 @@ export default function TradeCardActions({ cardId }: TradeCardActionsProps) {
                 {confirmationModal && (<ConfirmationModal onConfirm={handleRemoveCard} onCancel={() => setConfirmationModal(false)} loading={loading} />)}
             </header>
 
-            <SquarePen className="w-5 h-5 text-gray-400 cursor-pointer" onClick={handleUpdateCard} />
-            <Trash className="w-5 h-5 text-gray-400 cursor-pointer" onClick={() => setConfirmationModal(true)} />
+            <SquarePen className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={handleUpdateCard} />
+            <Trash className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={() => setConfirmationModal(true)} />
         </div>
     )
 }

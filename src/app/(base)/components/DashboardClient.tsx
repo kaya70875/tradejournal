@@ -1,65 +1,71 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react'
-import DashboardHeader from './DashboardHeader'
-import SearchInput from './SearchInput'
-import TradeForm from './TradeForm'
-import TradeCard from './TradeCard'
+import React, { useState } from "react";
+import DashboardHeader from "./DashboardHeader";
+import SearchInput from "./SearchInput";
+import TradeForm from "./TradeForm";
+import TradeCard from "./TradeCard";
+import { useRealtimeTrades } from "@/hooks/useRealTimeTradeCards";
 
 export interface TradeCard {
-    id: number;
-    pair: string;
-    reason: string;
-    created_at: string;
-    tags: string[];
+  id: number;
+  pair: string;
+  reason: string;
+  created_at: string;
+  tags: string[];
 }
 
 interface DashboardClientProps {
-    tradeCards: TradeCard[]
+  tradeCards: TradeCard[];
 }
 
-export default function DashboardClient({ tradeCards }: DashboardClientProps) {
+export default function DashboardClient({ tradeCards: initialCards }: DashboardClientProps) {
+  const [tradeCards, setTradeCards] = useState<TradeCard[]>(initialCards);
+  const [showTradeForm, setShowTradeForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedCard, setEditedCard] = useState<TradeCard | null>(null);
 
-    const [showTradeForm, setShowTradeForm] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    const [editingCard, setEditingCard] = useState<TradeCard | null>(null);
+  const handleOnEdit = (card: TradeCard) => {
+    setIsEditing(true);
+    setShowTradeForm(true);
+    setEditedCard(card);
+  };
 
-    const handleOnEdit = (card: TradeCard) => {
-        setIsEditing(true);
-        setShowTradeForm(true);
-        setEditingCard(card);
-    }
+  const handleNewTradeForm = () => {
+    setShowTradeForm(true);
+    setIsEditing(false);
+    setEditedCard(null);
+  };
 
-    const handleNewTradeForm = () => {
-        setShowTradeForm(true);
-        setIsEditing(false);
-        setEditingCard(null);
-    }
+  useRealtimeTrades(setTradeCards);
 
-    return (
-        <div className='ml-[256px] p-8 flex flex-col gap-4'>
-            <DashboardHeader onOpen={handleNewTradeForm} />
-            <SearchInput />
+  return (
+    <div className="ml-[256px] p-8 flex flex-col gap-4">
+      <DashboardHeader onOpen={handleNewTradeForm} />
+      <SearchInput />
 
-            {showTradeForm && (
-                <TradeForm onClose={() => setShowTradeForm(false)} type={isEditing ? 'update' : 'insert'} initialValues={editingCard as TradeCard} editingCardId={editingCard?.id} />
-            )}
+      {showTradeForm && (
+        <TradeForm
+          onClose={() => setShowTradeForm(false)}
+          type={isEditing ? "update" : "insert"}
+          initialValues={editedCard as TradeCard}
+          editingCardId={editedCard?.id}
+        />
+      )}
 
-            <section className='grid grid-cols-3 gap-4 w-full'>
-                {tradeCards.map((card, idx) => (
-                    <TradeCard
-                        id={card.id}
-                        pair={card.pair}
-                        reason={card.reason}
-                        date={card.created_at}
-                        tags={card.tags}
-                        key={idx}
-                        onEdit={() => handleOnEdit(card)}
-                    />
-                ))}
-            </section>
-
-
-        </div>
-    )
+      <section className="grid grid-cols-3 gap-4 w-full">
+        {tradeCards.map((card) => (
+          <TradeCard
+            id={card.id}
+            pair={card.pair}
+            reason={card.reason}
+            date={card.created_at}
+            tags={card.tags}
+            key={card.id}
+            onEdit={() => handleOnEdit(card)}
+          />
+        ))}
+      </section>
+    </div>
+  );
 }

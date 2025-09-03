@@ -30,12 +30,6 @@ export default function DashboardClient({ tradeCards }: DashboardClientProps) {
         setEditingCard(card);
     }
 
-    const handleCancelUpdate = () => {
-        setIsEditing(false);
-        setShowTradeForm(false);
-        setEditingCard(null);
-    }
-
     const handleNewTradeForm = () => {
         setShowTradeForm(true);
         setIsEditing(false);
@@ -61,8 +55,6 @@ export default function DashboardClient({ tradeCards }: DashboardClientProps) {
                         tags={card.tags}
                         key={idx}
                         onEdit={() => handleOnEdit(card)}
-                        onCancel={() => handleCancelUpdate()}
-
                     />
                 ))}
             </section>

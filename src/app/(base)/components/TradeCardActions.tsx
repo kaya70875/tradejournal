@@ -8,10 +8,9 @@ import ConfirmationModal from './ConfirmationModal';
 interface TradeCardActionsProps {
     cardId: number;
     onEdit: () => void;
-    onCancel: () => void;
 }
 
-export default function TradeCardActions({ cardId, onEdit, onCancel }: TradeCardActionsProps) {
+export default function TradeCardActions({ cardId, onEdit }: TradeCardActionsProps) {
 
     const [confirmationModal, setConfirmationModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -24,23 +23,14 @@ export default function TradeCardActions({ cardId, onEdit, onCancel }: TradeCard
         setConfirmationModal(false);
     }
 
-    const handleUpdateCard = async () => {
-        onEdit();
-    }
-
-    const handleCancel = () => {
-        setConfirmationModal(true);
-        onCancel();
-    }
-
     return (
         <div className="icons-action flex items-center gap-2">
             <header>
                 {confirmationModal && (<ConfirmationModal onConfirm={handleRemoveCard} onCancel={() => setConfirmationModal(false)} loading={loading} />)}
             </header>
 
-            <SquarePen className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={handleUpdateCard} />
-            <Trash className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={handleCancel} />
+            <SquarePen className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={onEdit} />
+            <Trash className="w-5 h-5 text-gray-400 cursor-pointer hover:opacity-80" onClick={() => setConfirmationModal(true)} />
         </div>
     )
 }

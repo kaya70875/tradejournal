@@ -17,7 +17,11 @@ import {
 import { supabase } from "@/utils/supabase/client";
 import UserInfo from "./UserInfo";
 
-export default function Sidebar() {
+interface SidebarProps {
+    onToggle: () => void;
+}
+
+export default function Sidebar({onToggle} : SidebarProps) {
     const router = useRouter();
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -36,7 +40,7 @@ export default function Sidebar() {
     }
     return (
         <div
-            className={`${isCollapsed ? "w-16" : "w-64"} h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 fixed left-0 top-0`}
+            className={`${isCollapsed ? "w-16" : "w-64"} h-screen bg-gray-900 text-white flex flex-col transition-all duration-200 ease-in fixed left-0 top-0`}
         >
             {/* Logo */}
             <div className="flex items-center justify-between p-4 border-b border-gray-800">
@@ -45,8 +49,11 @@ export default function Sidebar() {
                     {!isCollapsed && <span className="ml-2 text-xl font-bold">TradeJournal</span>}
                 </Link>
                 <button
-                    onClick={() => setIsCollapsed((prev) => !prev)}
-                    className="hidden lg:block text-gray-400 hover:text-white"
+                    onClick={() => {
+                        setIsCollapsed((prev) => !prev);
+                        onToggle();
+                    }}
+                    className="hidden lg:block text-gray-400 hover:text-white cursor-pointer"
                 >
                     {isCollapsed ? <ChevronRightIcon className="h-5 w-5" /> : <ChevronLeftIcon className="h-5 w-5" />}
                 </button>

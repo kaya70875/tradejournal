@@ -40,7 +40,7 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
   useRealtimeTrades(setTradeCards);
 
   return (
-    <div className="ml-[256px] p-8 flex flex-col gap-4">
+    <div className="p-8 flex flex-col gap-4">
       <DashboardHeader onOpen={handleNewTradeForm} />
       <SearchInput />
 

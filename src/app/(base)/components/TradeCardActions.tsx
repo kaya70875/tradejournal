@@ -29,7 +29,7 @@ export default function TradeCardActions({ cardId, onEdit, onCancel }: TradeCard
     }
 
     const handleCancel = () => {
-        setConfirmationModal(false);
+        setConfirmationModal(true);
         onCancel();
     }
 

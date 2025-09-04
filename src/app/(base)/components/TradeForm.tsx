@@ -16,12 +16,13 @@ interface Trade {
 
 interface TradeFormProps {
   onClose: () => void;
+  formSubmitted: () => void;
   initialValues?: Trade;
   type?: FormType;
   editingCardId?: number;
 }
 
-export default function TradeForm({ onClose, initialValues, type = 'insert', editingCardId }: TradeFormProps) {
+export default function TradeForm({ onClose, formSubmitted, initialValues, type = 'insert', editingCardId }: TradeFormProps) {
   const [tradeForm, setTradeForm] = useState<Trade>({
     pair: initialValues?.pair || '',
     reason: initialValues?.reason || '',
@@ -45,6 +46,8 @@ export default function TradeForm({ onClose, initialValues, type = 'insert', edi
     setError(null);
 
     try {
+      formSubmitted();
+
       if (type === 'insert') {
         const { error: insertError } = await supabase.from('trade').insert([
           {

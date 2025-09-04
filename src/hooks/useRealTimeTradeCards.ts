@@ -5,7 +5,7 @@ import { supabase } from "@/utils/supabase/client";
 import { useEffect } from "react";
 
 // Custom hook for subscribing to real-time updates
-export const useRealtimeTrades = (setTradeCards: React.Dispatch<React.SetStateAction<TradeCard[]>>) => {
+export const useRealtimeTrades = (setTradeCards: React.Dispatch<React.SetStateAction<TradeCard[]>>, isFormSubmitted: boolean) => {
   useEffect(() => {
     const channel = supabase
       .channel("realtime-trades")
@@ -29,7 +29,7 @@ export const useRealtimeTrades = (setTradeCards: React.Dispatch<React.SetStateAc
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [setTradeCards]);
+  }, [setTradeCards, isFormSubmitted]);
 };
 
 const handleTradeUpdate = (prev: TradeCard[], eventType: string, newCard?: TradeCard, oldCard?: TradeCard): TradeCard[] => {

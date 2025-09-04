@@ -23,6 +23,7 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
   const [tradeCards, setTradeCards] = useState<TradeCard[]>(initialCards);
   const [showTradeForm, setShowTradeForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [editedCard, setEditedCard] = useState<TradeCard | null>(null);
 
   const handleOnEdit = (card: TradeCard) => {
@@ -37,7 +38,7 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
     setEditedCard(null);
   };
 
-  useRealtimeTrades(setTradeCards);
+  useRealtimeTrades(setTradeCards, isFormSubmitted);
 
   return (
     <div className="p-8 flex flex-col gap-4">
@@ -47,6 +48,7 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
       {showTradeForm && (
         <TradeForm
           onClose={() => setShowTradeForm(false)}
+          formSubmitted={() => setIsFormSubmitted(true)}
           type={isEditing ? "update" : "insert"}
           initialValues={editedCard as TradeCard}
           editingCardId={editedCard?.id}

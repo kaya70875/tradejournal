@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "go": "npm run build && npm run start",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"

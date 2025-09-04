@@ -1,13 +1,34 @@
-import React from 'react'
+'use client';
+
+import { supabase } from '@/utils/supabase/client';
+import React, { useState } from 'react'
 
 interface GoogleAuthButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 }
 
 export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
+
+    const [loading, setLoading] = useState(false);
+
+    const handleGoogleAuth = async () => {
+        setLoading(true);
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: `${window.location.origin}/auth/callback`
+            }
+        })
+
+        if (error) console.error('Google login error', error.message);
+        setLoading(false);
+    }
+
     return (
         <button
-            className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md cursor-pointer hover:opacity-80 shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md cursor-pointer hover:opacity-80 shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-80"
+            disabled={loading}
+            onClick={handleGoogleAuth}
             {...props}
         >
 

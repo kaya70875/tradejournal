@@ -13,7 +13,7 @@ export default function HeroSection() {
                         Understand why you enter trades, track your decision-making
                         process, and improve your trading strategy.
                     </p>
-                    <div className="mt-10 flex justify-center gap-4">
+                    <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
                         <Link
                             href="/dashboard"
                             className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-blue bg-white hover:bg-gray-50 md:text-lg"

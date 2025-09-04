@@ -42,7 +42,7 @@ export default function TradeForm({ onClose, initialValues, type = 'insert', edi
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // Reset error
+    setError(null);
 
     try {
       if (type === 'insert') {
@@ -66,16 +66,15 @@ export default function TradeForm({ onClose, initialValues, type = 'insert', edi
             reason: tradeForm.reason,
             tags: tradeForm.tags,
           })
-          .eq('id', editingCardId); // Assuming 'id' is the primary key; adjust if needed
+          .eq('id', editingCardId);
 
         if (updateError) throw updateError;
       }
 
-      onClose(); // Close the form on success
-      // Optionally, trigger a refresh in the parent component if needed (e.g., via a callback prop)
+      onClose();
     } catch (err) {
       console.error(err);
-      setError('An error occurred. Please try again.'); // Display error
+      setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -86,7 +85,7 @@ export default function TradeForm({ onClose, initialValues, type = 'insert', edi
       <header className="form-header">
         <h3>{type === 'insert' ? 'Add New Trade' : 'Update Trade Card'}</h3>
       </header>
-      {error && <div className="text-red-500">{error}</div>} {/* Error display */}
+      {error && <div className="text-red-500">{error}</div>}
       <form className="flex flex-col gap-6 w-full" onSubmit={handleSubmit}>
         <section className="inputs flex flex-col gap-2">
           <FormField

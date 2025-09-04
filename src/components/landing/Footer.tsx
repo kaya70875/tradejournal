@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <footer className="bg-gray-800 text-white mt-auto">
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-8 justify-around w-full">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center">
                             <BookOpenIcon className="h-8 w-8 text-blue-400" />
@@ -33,38 +33,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Resources
-                        </h3>
-                        <ul className="mt-4 space-y-4">
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-base text-gray-300 hover:text-white"
-                                >
-                                    Blog
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-base text-gray-300 hover:text-white"
-                                >
-                                    Guides
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-base text-gray-300 hover:text-white"
-                                >
-                                    Help Center
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                        <h3 className="text-sm font-semibold text-white! tracking-wider uppercase">
                             Company
                         </h3>
                         <ul className="mt-4 space-y-4">

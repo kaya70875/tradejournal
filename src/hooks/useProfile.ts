@@ -3,12 +3,12 @@
 import { supabase } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 
-type Profile = {
+export type Profile = {
     id: string;
     full_name: string;
 }
 
-export const useProfile = (userId: string) => {
+export const useProfile = (userId: string | undefined) => {
     const [profile, setProfile] = useState<null | Profile>(null);
     const [loading, setLoading] = useState(false);
     
@@ -17,7 +17,7 @@ export const useProfile = (userId: string) => {
             setLoading(true);
 
             if(userId) {
-                const { data: profile, error } = await supabase
+                const { data: profileData, error } = await supabase
                     .from('profiles')
                     .select('*')
                     .eq('id', userId)
@@ -29,12 +29,15 @@ export const useProfile = (userId: string) => {
                 }
 
                 setLoading(false);
-                setProfile(profile);
-            };
+                setProfile(profileData);
+            } else {
+                setProfile(null);
+                setLoading(false);
+            }
         }
 
         getProfile();
     }, [userId])
 
-    return {profile, loading};
+    return {profile, setProfile, loading};
 }

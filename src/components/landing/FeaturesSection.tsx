@@ -39,9 +39,9 @@ const featureCards = [
 
 export default function FeaturesSection() {
     return (
-        <div id="features" className="py-16 bg-white">
+        <div id="features" className="py-16 sm:py-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <SectionHeader title='Why Use TradeJournal?' desc='Our platform helps you make better trading decisions through reflection and analysis.' />
+                <SectionHeader title='Unlock Your Trading Potential' desc='Our powerful features help you make informed decisions and achieve consistent growth.' />
                 <div className="mt-16">
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {featureCards.map((card, idx) => (

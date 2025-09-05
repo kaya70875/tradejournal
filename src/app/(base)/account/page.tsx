@@ -1,7 +1,8 @@
 import React from 'react';
 import ProfileInformation from '../components/account/ProfileInformation';
 import ReminderSettings from '../components/account/ReminderSettings';
-import PasswordSettings from '../components/account/PasswordSettings';
+import ChangePasswordSection from '../components/account/ChangePasswordSection';
+import LogoutButton from '../components/account/LogoutButton';
 
 export default function AccountPage() {
     return (
@@ -10,7 +11,8 @@ export default function AccountPage() {
             
             <ProfileInformation />
             <ReminderSettings />
-            <PasswordSettings />
+            <ChangePasswordSection />
+            <LogoutButton />
         </div>
     );
 }

@@ -27,8 +27,8 @@ export default function TradeCard({ id, pair, reason, date, tags, onEdit }: Tran
                 </div>
             </section>
 
-            <div className="description max-h-12">
-                <p className="text-gray-700 line-clamp-2">{reason}</p>
+            <div className="description">
+                <p className="text-gray-700">{reason}</p>
             </div>
 
             <div className="tags flex items-center gap-2">

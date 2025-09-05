@@ -7,32 +7,32 @@ const featureCards = [
     {
         title: "Document Trade Reasoning",
         desc: "Keep a detailed record of why you entered each trade, helping you identify patterns in your decision-making.",
-        icon: <BookOpenIcon className="h-6 w-6 text-blue-600" area-hidden="true" />
+        icon: <BookOpenIcon className="h-6 w-6 text-blue-600" aria-hidden="true" />
     },
 
     {
         title: "Categorize with Tags",
         desc: "Organize your trades with custom tags like 'long, 'short,' 'daytrade,' or 'swing' for better analysis.",
-        icon: <TagIcon className="h-6 w-6 text-blue-600" area-hidden="true" />
+        icon: <TagIcon className="h-6 w-6 text-blue-600" aria-hidden="true" />
     },
 
     {
         title: "Trade Relevance Reminders",
         desc: "Receive email reminders to review if your trade thesis is still relevant based on current market conditions.",
-        icon: <ClockIcon className="h-6 w-6 text-blue-600" area-hidden="true" />
+        icon: <ClockIcon className="h-6 w-6 text-blue-600" aria-hidden="true" />
     },
 
     {
         title: "Performance Analytics",
         desc: "Track your trading performance over time and identify which strategies work best for you.",
-        icon: <BarChart2Icon className="h-6 w-6 text-blue-600" area-hidden="true" />
+        icon: <BarChart2Icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
 
     },
 
     {
         title: "Trade Validation",
         desc: "Review your past decisions to validate your trading strategy and improve future outcomes.",
-        icon: <CheckCircleIcon className="h-6 w-6 text-blue-600" area-hidden="true" />
+        icon: <CheckCircleIcon className="h-6 w-6 text-blue-600" aria-hidden="true" />
 
     }
 ] as const;

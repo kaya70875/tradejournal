@@ -30,8 +30,8 @@ export default function TradeCard({ trade, onEdit, onViewDetails }: TrandeCardPr
                 </div>
             </section>
 
-            <div className="description max-h-12">
-                <p className="text-gray-700 line-clamp-3">{trade.reason}</p>
+            <div className="description">
+                <p className="text-gray-700 line-clamp-2">{trade.reason}</p>
             </div>
 
             <div className="tags flex items-center gap-2">

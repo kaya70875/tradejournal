@@ -43,7 +43,7 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
   return (
     <div className="p-8 flex flex-col gap-4">
       <DashboardHeader onOpen={handleNewTradeForm} />
-      <SearchInput />
+      <SearchInput setTradeCards={setTradeCards} initialCards={initialCards}/>
 
       {showTradeForm && (
         <TradeForm

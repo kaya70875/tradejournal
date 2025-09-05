@@ -5,6 +5,7 @@ import DashboardHeader from "./DashboardHeader";
 import SearchInput from "./SearchInput";
 import TradeForm from "./TradeForm";
 import TradeCard from "./TradeCard";
+import TradeDetailModal from "./TradeDetailModal"; // Import the new modal component
 import { useRealtimeTrades } from "@/hooks/useRealTimeTradeCards";
 
 export interface TradeCard {
@@ -26,6 +27,10 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [editedCard, setEditedCard] = useState<TradeCard | null>(null);
 
+  // State for TradeDetailModal
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedTradeForDetail, setSelectedTradeForDetail] = useState<TradeCard | null>(null);
+
   const handleOnEdit = (card: TradeCard) => {
     setIsEditing(true);
     setShowTradeForm(true);
@@ -36,6 +41,11 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
     setShowTradeForm(true);
     setIsEditing(false);
     setEditedCard(null);
+  };
+
+  const handleViewDetails = (trade: TradeCard) => {
+    setSelectedTradeForDetail(trade);
+    setShowDetailModal(true);
   };
 
   useRealtimeTrades(setTradeCards, isFormSubmitted);
@@ -55,19 +65,23 @@ export default function DashboardClient({ tradeCards: initialCards }: DashboardC
         />
       )}
 
-      <section className="grid grid-cols-3 gap-4 w-full">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {tradeCards.map((card) => (
           <TradeCard
-            id={card.id}
-            pair={card.pair}
-            reason={card.reason}
-            date={card.created_at}
-            tags={card.tags}
+            trade={card} // Pass the entire card object
             key={card.id}
-            onEdit={() => handleOnEdit(card)}
+            onEdit={handleOnEdit}
+            onViewDetails={handleViewDetails} // Pass the new handler
           />
         ))}
       </section>
+
+      {showDetailModal && selectedTradeForDetail && (
+        <TradeDetailModal
+          trade={selectedTradeForDetail}
+          onClose={() => setShowDetailModal(false)}
+        />
+      )}
     </div>
   );
 }

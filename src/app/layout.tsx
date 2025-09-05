@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import ToastProvider from "@/components/ToastProvider";
 
 const inter = Inter();
 
@@ -22,6 +22,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
+        <ToastProvider />
         {children}
       </body>
     </html>

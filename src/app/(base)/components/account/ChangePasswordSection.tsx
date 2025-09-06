@@ -89,7 +89,7 @@ export default function ChangePasswordSection() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
-                    error={passwordError}
+                    error={passwordError as string}
                     required
                 />
                 <Button type="submit" disabled={loading} className="w-fit">
